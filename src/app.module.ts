@@ -5,6 +5,11 @@ import { NecordModule } from 'necord';
 import { AppCommands } from './app.commands';
 import { AppService } from './app.service';
 import { CatsCommands } from './cats.commands';
+import { GamingCommands } from './gaming/gaming.commands';
+import { GamingService } from './gaming/gaming.service';
+import { PrismaService } from './prisma/prisma.service';
+import { RemindersService } from './reminders/reminders.service';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -21,6 +26,14 @@ import { CatsCommands } from './cats.commands';
       }),
     }),
   ],
-  providers: [AppService, AppCommands, CatsCommands],
+  providers: [
+    AppService,
+    AppCommands,
+    CatsCommands,
+    PrismaService,
+    GamingService,
+    GamingCommands,
+    RemindersService,
+  ],
 })
 export class AppModule {}
