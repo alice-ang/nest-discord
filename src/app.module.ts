@@ -8,6 +8,7 @@ import { CatsCommands } from './cats.commands';
 import { GamingCommands } from './gaming/gaming.commands';
 import { GamingService } from './gaming/gaming.service';
 import { PrismaService } from './prisma/prisma.service';
+import { RemindersService } from './reminders/reminders.service';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { PrismaService } from './prisma/prisma.service';
     PrismaService,
     GamingService,
     GamingCommands,
+    RemindersService,
   ],
 })
 export class AppModule {}

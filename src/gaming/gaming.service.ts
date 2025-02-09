@@ -19,6 +19,29 @@ export class GamingService {
     }, 60000);
   }
 
+  // @On('interactionCreate')
+  // public onInteractionCreate(
+  //   @Context() [interaction]: ContextOf<'interactionCreate'>,
+  // ) {
+  //   if (!interaction.isChatInputCommand()) {
+  //     return;
+  //   }
+
+  //   if (interaction.commandName === 'embed') {
+  //     const embed = new EmbedBuilder()
+  //       .setTitle('Hello')
+  //       .setDescription('World')
+  //       .setColor('Random')
+  //       .addFields({
+  //         name: 'Field title',
+  //         value: 'World',
+  //         inline: true,
+  //       });
+
+  //     return interaction.reply({ embeds: [embed] });
+  //   }
+  // }
+
   async setAvailability(data: {
     userId: string;
     guildId: string;
