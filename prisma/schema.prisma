@@ -12,3 +12,25 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Availability {
+  id        String   @id @default(uuid())
+  userId    String
+  guildId   String
+  startTime DateTime
+  endTime   DateTime
+  createdAt DateTime @default(now())
+
+  @@index([guildId])
+}
+
+model GameSession {
+  id            String   @id @default(uuid())
+  guildId       String
+  scheduledTime DateTime
+  participants  String[]
+  createdAt     DateTime @default(now())
+  reminded      Boolean  @default(false)
+
+  @@index([guildId])
+}
