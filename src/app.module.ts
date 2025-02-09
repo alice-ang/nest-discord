@@ -8,7 +8,7 @@ import { CatsCommands } from './cats.commands';
 import { GamingCommands } from './gaming/gaming.commands';
 import { GamingService } from './gaming/gaming.service';
 import { PrismaService } from './prisma/prisma.service';
-import { RemindersService } from './reminders/reminders.service';
+import { RemindersModule } from './reminders/reminders.module';
 
 @Module({
   imports: [
@@ -25,6 +25,7 @@ import { RemindersService } from './reminders/reminders.service';
         development: [process.env.DISCORD_DEVELOPMENT_GUILD_ID as string],
       }),
     }),
+    RemindersModule,
   ],
   providers: [
     AppService,
@@ -33,7 +34,6 @@ import { RemindersService } from './reminders/reminders.service';
     PrismaService,
     GamingService,
     GamingCommands,
-    RemindersService,
   ],
 })
 export class AppModule {}

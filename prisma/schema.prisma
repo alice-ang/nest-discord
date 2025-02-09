@@ -27,6 +27,7 @@ model Availability {
 model GameSession {
   id            String   @id @default(uuid())
   guildId       String
+  channelId     String 
   scheduledTime DateTime
   participants  String[]
   createdAt     DateTime @default(now())

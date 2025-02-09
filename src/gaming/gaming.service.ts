@@ -1,23 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Client } from 'discord.js';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class GamingService {
   private readonly logger = new Logger(GamingService.name);
 
-  constructor(
-    private prisma: PrismaService,
-    private client: Client,
-  ) {
-    setInterval(() => {
-      try {
-        void this.checkReminders();
-      } catch (error) {
-        this.logger.error('Failed to check reminders', error);
-      }
-    }, 60000);
-  }
+  constructor(private prisma: PrismaService) {}
 
   // @On('interactionCreate')
   // public onInteractionCreate(
@@ -90,44 +78,5 @@ export class GamingService {
 
       return commonTimes;
     }, []);
-  }
-
-  private async checkReminders() {
-    const now = new Date();
-    const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000);
-
-    const sessionsToRemind = await this.prisma.gameSession.findMany({
-      where: {
-        scheduledTime: {
-          gte: now,
-          lte: oneHourFromNow,
-        },
-        reminded: false,
-      },
-    });
-
-    for (const session of sessionsToRemind) {
-      try {
-        const channel = await this.client.channels.fetch(session.guildId);
-        if (channel?.isTextBased() && 'send' in channel) {
-          const message = await channel.send({
-            content: `🎮 Gaming session starting in 1 hour! React with ✅ if you're still available!`,
-          });
-
-          await message.react('✅');
-          await message.react('❌');
-
-          await this.prisma.gameSession.update({
-            where: { id: session.id },
-            data: { reminded: true },
-          });
-        }
-      } catch (error) {
-        this.logger.error(
-          `Failed to send reminder for session ${session.id}`,
-          error,
-        );
-      }
-    }
   }
 }
