@@ -45,7 +45,6 @@ export class GamingService {
     const availabilities = await this.prisma.availability.findMany({
       where: { guildId },
     });
-    console.log(availabilities);
 
     if (availabilities.length === 0) {
       return [];
